@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <script type="text/javascript">
+  let Person = function(name,hobby){
+    this.name = name;
+    this.hobby = hobby;
+  }
+
+  Person.prototype.doJikosyokai = function(){
+    console.log('私の名前は' + this.name);
+    console.log('趣味は' + this.hobby)
+  }
+
+  let mejileben = new Person('mejileben', 'programming');
+  mejileben.doJikosyokai();
+
+  </script>
+</head>
+<body>
+
+</body>
+</html>
