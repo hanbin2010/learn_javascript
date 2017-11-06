@@ -4,19 +4,32 @@
   <meta charset="utf-8">
   <title></title>
   <script type="text/javascript">
-  let Person = function(name,hobby){
-    this.name = name;
-    this.hobby = hobby;
+
+  var g = {
+    testa:'haha'
   }
 
-  Person.prototype.doJikosyokai = function(){
-    console.log('私の名前は' + this.name);
-    console.log('趣味は' + this.hobby)
+  var runloop = function () {
+    console.log("runloop2");
+
+    g.draw = function () {
+      console.log("draw3");
+    }
+
+
+    g.draw()
+    setTimeout(function (fps) {
+      console.log("runloop in4");
+      runloop()
+    },1000/0.5)
   }
 
-  let mejileben = new Person('mejileben', 'programming');
-  mejileben.doJikosyokai();
+  setTimeout(function (fps) {
+    console.log("runloop out1");
+    runloop()
+  },1000/0.5)
 
+// console.log("0000");
   </script>
 </head>
 <body>
