@@ -10,7 +10,7 @@ var loadLevel = function (n,game) {
   //one element in array
   var level = levels[n]
   //empty array
-  var blocks = []
+  blocks = []
   //create blocks by level
   for (var i = 0; i < level.length; i++) {
     //p is position
@@ -18,7 +18,8 @@ var loadLevel = function (n,game) {
     //call Block func and pass p to block
     var b = Block(p,game)
     //add an element
-    blocks.push(b)
+   blocks.push(b)
+   log('blocks',blocks)
   }
   return blocks
 }
@@ -29,7 +30,6 @@ var enableDebugMode = function (flg,game) {
   if(!flg){
     return
   }
-
 // so what is the difference key up vs key down??
   window.addEventListener('keyup',function () {
     //use short var name in the func
@@ -39,7 +39,7 @@ var enableDebugMode = function (flg,game) {
         //change paused
         window.paused = !window.paused
       }else if ('1234567'.includes(k)) {
-            window.blocks = loadLevel(Number(k),game)
+            blocks = loadLevel(Number(k),game)
       }
     //   }else if (event.key === '1') {
     //     blocks = loadLevel(1)
@@ -69,16 +69,17 @@ var __main = function(){
         ball:'imgs/ball.png',
         paddle:'imgs/paddle.png',
   }
-    var game = GuaGame(30,images)
+    var game = GuaGame(30,images,function () {
+    blocks = loadLevel(1,game)
+
+    //gameの初期化は非同期なので、まだイメージができていないんだ
+    //imagesが空のobjectになってしまった
     var paddle = Paddle(game)
+    log(paddle)
     var ball = Ball(game)
     var score = 0
-    
-    //call func
-    //set debug mode true
-    enableDebugMode(true,game)
+
     // window.blocks = loadLevel(1,game)
-    var blocks = loadLevel(1,game)
 
     //paddleと関係ないことも関数に入れる
     //canvasを描画する
@@ -103,8 +104,6 @@ var __main = function(){
 
     // game.registerAction('p',function () {
     // })
-
-
 //drawとupdateは本来ならguaGameの中にいるはず
 //今はpaddleとかballとか一緒に使っているんで、とても分かりにくい
     //draw
@@ -113,8 +112,8 @@ var __main = function(){
       game.drawImage(paddle)
       game.drawImage(ball)
 
-      for (var i = 0; i < window.blocks.length; i++) {
-        var b = window.blocks[i]
+      for (var i = 0; i < blocks.length; i++) {
+        var b = blocks[i]
         if(b.alive){
           game.drawImage(b)
         }
@@ -123,7 +122,6 @@ var __main = function(){
       //draw lables
       game.context.fillText("score is "+score, 10, 290)
     }
-
 
     game.update = function () {
       if(window.paused){
@@ -138,8 +136,8 @@ var __main = function(){
           ball.rebound()
         // ball.speedY *= -1
       }
-      for (var i = 0; i < window.blocks.length; i++) {
-        var b = window.blocks[i]
+      for (var i = 0; i < blocks.length; i++) {
+        var b = blocks[i]
         if(b.collide(ball)){
           console.log("ball collide");
           b.kill()
@@ -149,7 +147,14 @@ var __main = function(){
         }
       }
     }
+})
+
+//call func
+//set debug mode true
+enableDebugMode(true,game)
+
 }
+
 
 //start main function
 __main()

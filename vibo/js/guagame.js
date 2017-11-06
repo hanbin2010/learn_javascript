@@ -1,6 +1,6 @@
 //js do not need import
 
-var GuaGame = function (fps,images) {
+var GuaGame = function (fps,images,runCallBack) {
   //imagesはオブジェクトであり、中には、イメージの引用名とイメージのリンクがある
   //プログラムはイメージを全部ロードし終わった後に動く
   var g = {
@@ -97,9 +97,12 @@ var names = Object.keys(images)
 
 //先にすべての図をロードする
 for (var i = 0; i < names.length; i++) {
-  var name =  names[i]
-  var path = images[name]
-  var img = new Image()
+  //forの中でnameのスコープが上層し、全域になって
+  //nameは常に最後のものしか取れない
+  // var name =  names[i]
+  let name =  names[i]
+   path = images[name]
+  let img = new Image()
 
   //imgのリンクを定義する
   //imgは変数であり、オブジェクトでもあり、
@@ -110,7 +113,10 @@ for (var i = 0; i < names.length; i++) {
     g.images[name]=img
     //すべての図がロードされた後に、g.runを呼ぶ
     loads.push(1)
-    if(loads.length == images.length){
+
+    // if(loads.length == images.length){
+    if(loads.length == names.length){
+
       g.run()
     }
   }
@@ -123,15 +129,18 @@ g.imageByName = function (name) {
     w:img.width,
     h:img.height,
     //why?
-    image:image,
+    image:img,
   }
 
+// log('imageByName',image.image)
   return image
 }
 
 
 //プログラムがスタート
 g.run = function () {
+  runCallBack(g)
+
   //1秒内30回更新＋再描画
   //非同期
   //g.drawとg.updateの定義コードを読み終わってから、

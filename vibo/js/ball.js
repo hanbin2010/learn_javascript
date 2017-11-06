@@ -1,15 +1,14 @@
 //js do not need import
 
-  var Ball = function (name) {
+  var Ball = function (game) {
     //imageFromPath関数を呼び出して、パスをその関数に渡して」、imageをゲットする
     //imageはPaddleという形のオブジェクトの中で一つの属性である
     // var image = imageFromPath('imgs/ball.png')
-      var o = game.imageByName('ball')
+      var img = game.imageByName('ball')
     // oというオブジェクトがある
     //自由にその中の属性を定義する
-    /*
+
     var o = {
-      image:image,
       x:100,
       y:200,
       //カンマを絶対つけたほうが良い
@@ -17,15 +16,9 @@
       speedY:10,
       fired:false,
     };
-    */
+    
 
-    o.image=image
-    o.x=100
-    o.y=200
-    //カンマを絶対つけたほうが良い
-    o.speedX=10
-    o.speedY=10
-    o.fired=false
+     o.image=img.image
 
 
     o.fire = function () {

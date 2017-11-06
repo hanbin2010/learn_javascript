@@ -1,23 +1,23 @@
 var Paddle = function (game) {
+  log('paddle')
   //imageFromPath関数を呼び出して、パスをその関数に渡して」、imageをゲットする
   //imageはPaddleという形のオブジェクトの中で一つの属性である
   //var image = imageFromPath('paddle.png')
-  var o = game.imageByName('paddle')
+  var img = game.imageByName('paddle')
+  // log('img',img)
   // oというオブジェクトがある
   //自由にその中の属性を定義する
-  /*
+
   var o = {
-    image:image,
+//    image:img.image,
     x:100,
     y:250,
     //カンマを絶対つけたほうが良い
     speed:15,
   };
-*/
-o.x = 100
-o.y = 250
-o.speed = 15
 
+o.image = img.image
+log(o.image)
   //★★JSの特殊な書き方
   //再定義というか、登録する
   //oに一つの関数を定義する
@@ -52,6 +52,7 @@ o.speed = 15
     }
     return false
   }
+  log('paddle last')
   //いろんな属性とかを持つオブジェクトにする
   return o
 }
